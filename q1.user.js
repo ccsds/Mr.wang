@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        日期选择
+// @name        日期选择至演唱会选座
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
@@ -12,12 +12,22 @@
     'use strict';
     // 待办项：  重写alert方法
     // Your code here...
-    var f=2;//楼层
-    var sp='ABD';
-    var lv='Standing S section';
-    var tda='18';
-    var ttime="7:00"
-    var side="";//房间号
+    var f=2;//楼层 演唱会此项无效
+    var sp='ABD';//同上
+
+    //上面的选项 演唱会可以忽略
+    var lv='Standing S section'; // 座位等级
+    var tda='18'; //开演唱会的日子
+    var ttime="7:00" //开演唱会的时间
+    var side="";//房间号 默认是按照房间号从小号向大号检索
+    //用户信息
+    var MemberName="asdr";
+    var birthday="19900325";
+    var PhoneNo="15504311821";
+    var Card ="Visa";
+    var cardnumber	="1234568559584525";
+    var ExpirationDate	="2005"; //20年 5月
+
     window.onload=function(){
 
         var ifrmBookStep= document.getElementById("ifrmBookStep").contentWindow;
@@ -86,7 +96,7 @@
                                             if(boxli[e].innerHTML.split("</a>")[1].match(/\d+/)[0]*1>0){//还有票
                                                 boxa[e].click();
                                                 ticket=false;
-                                                setTimeout(function(){seatMap();},250)
+                                                setTimeout(function(){seatMap();},500)
 
                                                 break;
                                                 //房间抢票占位
@@ -99,7 +109,7 @@
                                     }else if(boxa[e].innerHTML.match(/\d+/)[0]*1>0){//没自定义房间号
                                         if(boxli[e].innerHTML.split("</a>")[1].match(/\d+/)[0]*1>0){//还有票
                                             boxa[e].click();
-                                            setTimeout(function(){seatMap();},250)
+                                            setTimeout(function(){seatMap();},500)
 
                                             break;
                                             //房间抢票占位
@@ -192,12 +202,23 @@
                         area[b].click();
                     }
                 }
-                setTimeout(function (){xuanzuo(false);},1000)
+                setTimeout(function (){xuanzuo(false);},500)
             }
         }
 
 
-    }//将dom对象转为字符串
+    }
+  
+
+    //选中下拉框函数
+    function chackSelect(optio,chac){
+        for(var p=0;p<optio.length;p++){
+            if(optio[p].innerHTML==chac){
+                optio[p].selected=true;
+            }
+        }
+    }
+    //将dom对象转为字符串
     function toInnerHTML(duixiang){
         const div = document.createElement("div")
         div.appendChild(duixiang.cloneNode(true));
