@@ -10,7 +10,7 @@
 
 (function() {
     'use strict';
-    // 待办项：  重写alert方法
+
     // Your code here...
     var f=2;//楼层 演唱会此项无效
     var sp='ABD';//同上
